@@ -1,0 +1,32 @@
+{
+  "name": "@repo/themes",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Themes for the cab aggregator application",
+  "license": "MIT",
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --treeshake --minify --format esm,cjs --dts --external react --target node16 && yarn docs",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
+    "dev": "tsup src/index.ts --format esm,cjs --watch --dts --external react",
+    "docs": "typedoc src/index.ts",
+    "lint": "TIMING=1 eslint src --fix",
+    "prepare": "tsup src/index.ts --treeshake --minify --format esm,cjs --dts --external react --target node16"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "*",
+    "@types/react": "^19.0.0",
+    "tsup": "^8.0.2",
+    "typedoc": "^0.27.9",
+    "typescript": "^5.3.3"
+  },
+  "peerDependencies": {
+    "react": ">=18.0.0"
+  }
+}
