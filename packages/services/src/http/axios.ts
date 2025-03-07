@@ -4,14 +4,24 @@ import axios, {
   AxiosRequestConfig,
   AxiosResponse,
 } from "axios";
+
+import { Logger } from "@repo/observability/core";
+
 import { ApiError } from "../errors/api";
 import { HttpClient, HttpRequestConfig, HttpResponse } from "./types";
 
 export class AxiosHttpClient implements HttpClient {
   private instance: AxiosInstance;
   private authToken: string | null = null;
+  private logger?: Logger;
 
-  constructor(baseURL: string, defaultConfig: HttpRequestConfig = {}) {
+  constructor(
+    baseURL: string,
+    defaultConfig: HttpRequestConfig = {},
+    options?: {
+      logger?: Logger;
+    },
+  ) {
     this.instance = axios.create({
       baseURL,
       headers: defaultConfig.headers,
@@ -19,17 +29,36 @@ export class AxiosHttpClient implements HttpClient {
       params: defaultConfig.params,
     });
 
+    this.logger = options?.logger;
+
     this.initializeInterceptors();
   }
 
   private initializeInterceptors() {
     this.instance.interceptors.request.use((config) => {
+      this.logger?.info(`API Request: ${config.method} ${config.url}`);
+
       return config;
     });
 
     this.instance.interceptors.response.use(
-      (response) => response,
+      (response) => {
+        this.logger?.info(
+          `API Response: ${response.config.method} ${response.config.url}`,
+          { status: response.status },
+        );
+
+        return response;
+      },
       (error: AxiosError) => {
+        this.logger?.error(
+          `API Error: ${error.config?.method} ${error.config?.url}`,
+          {
+            status: error.response?.status,
+            message: error.message,
+          },
+        );
+
         const apiError = new ApiError(
           error.message,
           error.response?.status,

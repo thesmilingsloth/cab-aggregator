@@ -1,4 +1,4 @@
-import { HttpClient, HttpResponse } from "../http";
+import { HttpClient } from "../http";
 import { BaseApiService } from "./base-service";
 import {
   SendOtpRequest,
@@ -13,23 +13,10 @@ import {
   CompleteDriverProfileResponse,
 } from "@repo/types";
 
-interface AuthService {
-  sendOtp: (payload: SendOtpRequest) => Promise<HttpResponse<SendOtpResponse>>;
-  resendOtp: (
-    payload: SendOtpRequest,
-  ) => Promise<HttpResponse<SendOtpResponse>>;
-  verifyOtp: (
-    payload: VerifyOtpRequest,
-  ) => Promise<HttpResponse<VerifyOtpResponse>>;
-  refreshToken: (
-    payload: RefreshTokenRequest,
-  ) => Promise<HttpResponse<RefreshTokenResponse>>;
-}
-
 /**
  * Driver authentication service
  */
-export class DriverAuthService extends BaseApiService implements AuthService {
+export class DriverAuthService extends BaseApiService {
   constructor(client: HttpClient) {
     super(client);
   }
@@ -62,8 +49,8 @@ export class DriverAuthService extends BaseApiService implements AuthService {
     );
   }
 
-  async completeProfile(payload: CompletePassengerProfileRequest) {
-    return this.client.post<CompletePassengerProfileResponse>(
+  async completeProfile(payload: CompleteDriverProfileRequest) {
+    return this.client.post<CompleteDriverProfileResponse>(
       this.buildUrl("/driver/complete-profile"),
       payload,
     );
