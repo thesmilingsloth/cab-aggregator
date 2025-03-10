@@ -1,0 +1,30 @@
+{
+  "name": "@repo/i18n",
+  "version": "1.0.0",
+  "description": "Internationalization configuration for React and React Native apps",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch"
+  },
+  "dependencies": {
+    "i18next": "^23.7.12",
+    "i18next-browser-languagedetector": "^7.2.0",
+    "react-i18next": "^14.0.0"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "react-native": ">=0.60.0"
+  },
+  "peerDependenciesMeta": {
+    "react-native": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.0",
+    "@types/react-native": "^0.72.0",
+    "typescript": "^5.0.0"
+  }
+}
