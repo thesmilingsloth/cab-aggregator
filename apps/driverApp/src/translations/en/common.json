@@ -1,0 +1,11 @@
+{
+  "appName": "Driver App",
+  "general": {
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "retry": "Retry",
+    "cancel": "Cancel",
+    "ok": "OK",
+    "confirm": "Confirm"
+  }
+}

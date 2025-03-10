@@ -19,8 +19,13 @@
   },
   "dependencies": {
     "@repo/dotenv": "*",
+    "@repo/i18n": "*",
     "react": "19.0.0",
     "react-native": "0.78.0"
+  },
+  "peerDependencies": {
+    "i18next": "^23.7.12",
+    "react-i18next": "14.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
@@ -32,7 +37,7 @@
     "@react-native/babel-preset": "0.78.0",
     "@react-native/eslint-config": "0.78.0",
     "@react-native/metro-config": "0.78.0",
-    "@react-native/typescript-config": "0.78.0",
+    "@repo/typescript-config": "*",
     "@types/jest": "^29.5.13",
     "@types/react": "^19.0.0",
     "@types/react-test-renderer": "^19.0.0",
